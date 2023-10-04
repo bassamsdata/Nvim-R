@@ -427,17 +427,13 @@ endfunction
 "   plug : the <Plug>Name
 "   combo: combination of letters that make the shortcut
 "   target: the command or function to be called
-function RCreateMaps(type, plug, combo, target)
+function RCreateMaps(type, plug, combo, target, desc)
+      if empty(a:desc)
+        let a:desc = "No description provided"
+    endif
     if index(g:R_disable_cmds, a:plug) > -1
         return
     endif
-    " if a:type =~ "n"
-    "   exec 'call nvim_set_keymap("n", "<buffer><silent> <Plug>' . a:plug . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
-    "   if g:R_user_maps_only != 1 && !hasmapto('<Plug>' . a:plug, "n")
-    "     exec 'call nvim_set_keymap("n", "<buffer><silent> <LocalLeader>' . a:combo . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
-    "   endif
-    " endif
-
     if a:type =~ '0'
         let tg = a:target . '<CR>0'
         let il = 'i'
@@ -449,9 +445,9 @@ function RCreateMaps(type, plug, combo, target)
         let il = 'a'
     endif
     if a:type =~ "n"
-        exec 'noremap <buffer><silent> <Plug>' . a:plug . ' ' . tg
-        if g:R_user_maps_only != 1 && !hasmapto('<Plug>' . a:plug, "n")
-            exec 'noremap <buffer><silent> <LocalLeader>' . a:combo . ' ' . tg
+      exec 'call nvim_set_keymap("n", "<buffer><silent> <Plug>' . a:plug . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
+      if g:R_user_maps_only != 1 && !hasmapto('<Plug>' . a:plug, "n")
+        exec 'call nvim_set_keymap("n", "<buffer><silent> <LocalLeader>' . a:combo . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
         endif
     endif
     if a:type =~ "v"
@@ -471,8 +467,8 @@ endfunction
 function RControlMaps()
     " List space, clear console, clear all
     "-------------------------------------
-    call RCreateMaps('nvi', 'RListSpace',    'rl', ':call g:SendCmdToR("ls()")')
-    call RCreateMaps('nvi', 'RClearConsole', 'rr', ':call RClearConsole()')
+    call RCreateMaps('nvi', 'RListSpace',    'rl', ':call g:SendCmdToR("ls()")', 'just for test bro')
+    call RCreateMaps('nvi', 'RClearConsole', 'rr', ':call RClearConsole()', 'just for test bro')
     call RCreateMaps('nvi', 'RClearAll',     'rm', ':call RClearAll()')
 
     " Print, names, structure
