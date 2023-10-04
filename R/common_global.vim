@@ -427,7 +427,7 @@ endfunction
 "   plug : the <Plug>Name
 "   combo: combination of letters that make the shortcut
 "   target: the command or function to be called
-function RCreateMaps(type, plug, combo, target, desc)
+function RCreateMaps(type, plug, combo, target)
     if index(g:R_disable_cmds, a:plug) > -1
         return
     endif
