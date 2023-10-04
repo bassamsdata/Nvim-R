@@ -467,9 +467,9 @@ endfunction
 function RControlMaps()
     " List space, clear console, clear all
     "-------------------------------------
-    call RCreateMaps('nvi', 'RListSpace',    'rl', ':call g:SendCmdToR("ls()")', 'just for test bro')
-    call RCreateMaps('nvi', 'RClearConsole', 'rr', ':call RClearConsole()', 'just for test bro')
-    call RCreateMaps('nvi', 'RClearAll',     'rm', ':call RClearAll()')
+    call RCreateMaps('n', 'RListSpace',    'rl', '<cmd>call g:SendCmdToR("ls()")<cr>', 'just for test bro')
+    call RCreateMaps('n', 'RClearConsole', 'rr', '<cmd>call RClearConsole()<cr>', 'just for test bro')
+    call RCreateMaps('n', 'RClearAll',     'rm', '<cmd>call RClearAll()<cr>')
 
     " Print, names, structure
     "-------------------------------------
