@@ -431,6 +431,12 @@ function RCreateMaps(type, plug, combo, target, desc)
     if index(g:R_disable_cmds, a:plug) > -1
         return
     endif
+    " if a:type =~ "n"
+    "   exec 'call nvim_set_keymap("n", "<buffer><silent> <Plug>' . a:plug . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
+    "   if g:R_user_maps_only != 1 && !hasmapto('<Plug>' . a:plug, "n")
+    "     exec 'call nvim_set_keymap("n", "<buffer><silent> <LocalLeader>' . a:combo . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
+    "   endif
+    " endif
 
     if a:type =~ '0'
         let tg = a:target . '<CR>0'
@@ -443,9 +449,9 @@ function RCreateMaps(type, plug, combo, target, desc)
         let il = 'a'
     endif
     if a:type =~ "n"
-      exec 'call nvim_set_keymap("n", "<buffer><silent> <Plug>' . a:plug . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
-      if g:R_user_maps_only != 1 && !hasmapto('<Plug>' . a:plug, "n")
-        exec 'call nvim_set_keymap("n", "<buffer><silent> <LocalLeader>' . a:combo . '", "' . tg . '", {"silent": v:true, "desc": "' . a:desc . '"})'
+        exec 'noremap <buffer><silent> <Plug>' . a:plug . ' ' . tg
+        if g:R_user_maps_only != 1 && !hasmapto('<Plug>' . a:plug, "n")
+            exec 'noremap <buffer><silent> <LocalLeader>' . a:combo . ' ' . tg
         endif
     endif
     if a:type =~ "v"
@@ -465,8 +471,8 @@ endfunction
 function RControlMaps()
     " List space, clear console, clear all
     "-------------------------------------
-    call RCreateMaps('nvi', 'RListSpace',    'rl', ':call g:SendCmdToR("ls()")', 'List space')
-    call RCreateMaps('nvi', 'RClearConsole', 'rr', ':call RClearConsole()','Clear console')
+    call RCreateMaps('nvi', 'RListSpace',    'rl', ':call g:SendCmdToR("ls()")')
+    call RCreateMaps('nvi', 'RClearConsole', 'rr', ':call RClearConsole()')
     call RCreateMaps('nvi', 'RClearAll',     'rm', ':call RClearAll()')
 
     " Print, names, structure
